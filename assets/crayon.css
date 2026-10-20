@@ -150,8 +150,8 @@ h1 .hl{
 
 /* 翻页 */
 .nav{display:flex;gap:12px;margin-top:20px;}
-.nav .btn{margin-top:0;flex:1;font-size:17px;}
-.nav .btn.prev{flex:0 0 40%;background:var(--paper);}
+.nav .btn{margin-top:0;flex:1 1 0;min-width:0;white-space:nowrap;font-size:17px;}
+.nav .btn.prev{background:var(--paper);}
 .nav .btn.prev:hover{background:var(--accent-3);}
 
 /* 结果 */
