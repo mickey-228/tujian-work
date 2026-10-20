@@ -18,7 +18,7 @@
     txt("kicker", Q.kicker || "");
     txt("title", Q.title || "");
     html("intro", Q.intro || "");
-    txt("startNote", Q.startNote || "");
+    html("startNote", Q.startNote || "");
     html("disclaimer", Q.disclaimer || "");
     txt("startLabel", Q.startLabel || "开始测试");
     txt("qTotal", Q.questions.length);
