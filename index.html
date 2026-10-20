@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>你的职场动物图鉴</title>
+<link rel="stylesheet" href="assets/crayon.css">
+</head>
+<body data-theme="work">
+<main class="wrap">
+
+  <section id="s-start">
+    <header class="masthead">
+      <span class="kicker" id="kicker"></span>
+      <h1 id="title"></h1>
+      <p class="lede" id="intro"></p>
+      <div class="meta">
+        <span><b id="qTotal">14</b> <span id="qUnit">题</span></span>
+        <span>约 4 分钟</span>
+        <span>无标准答案</span>
+      </div>
+    </header>
+    <div class="card">
+      <span class="tape"></span>
+      <p class="lede" id="startNote"></p>
+      <button class="btn" id="start"><span id="startLabel"></span> ✏️</button>
+    </div>
+  </section>
+
+  <section id="s-quiz" class="hidden">
+    <div class="card">
+      <span class="tape tl"></span>
+      <div class="progress">
+        <span class="num" id="pnum"></span>
+        <span class="bar"><i class="fill" id="pfill" style="width:7%"></i></span>
+      </div>
+      <span class="qtag" id="qtag"></span>
+      <div class="q" id="qtext"></div>
+      <div class="opts" id="opts"></div>
+      <div class="nav">
+        <button class="btn prev" id="prevBtn">← 上一题</button>
+        <button class="btn" id="nextBtn"><span class="lbl">下一题</span> →</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="s-result" class="hidden">
+    <div class="card">
+      <span class="tape tr"></span>
+      <div class="result-head">
+        <div class="plate" id="plate"></div>
+        <span class="rcode" id="rcode"></span>
+        <div class="rname" id="rname"></div>
+        <div class="rtag" id="rtag"></div>
+      </div>
+      <p class="portrait" id="portrait"></p>
+      <div class="detail" id="rdetail"></div>
+      <div class="match" id="rmatch"></div>
+      <div class="quote" id="rquote"></div>
+      <div class="bars">
+        <div class="bars-title">四型得分分布</div>
+        <div id="rbars"></div>
+      </div>
+      <div class="cta" id="rcta"></div>
+      <p class="disclaim" id="disclaimer"></p>
+      <button class="btn ghost" id="again">↺ 再测一次</button>
+    </div>
+  </section>
+
+  <div class="footer">图鉴系列 · 职场动物图鉴<br>趣味自测 · 不构成诊断</div>
+</main>
+
+<script>
+window.QUIZ = {
+  kicker: "打工人图鉴 · 第壹册｜工位",
+  title: "你的职场动物图鉴",
+  intro: "在办公室里，你是<em>哪种动物</em>？<br>十四道题，照见你的工位生存方式。",
+  startNote: "这一册收录 <b>工蜂 · 狐狸 · 猫头鹰 · 企鹅</b> 四种工位物种。选你在办公室里的<b>真实样子</b>，不是你想成为的样子。",
+  startLabel: "翻开图鉴",
+  scoreUnit: " 分",
+  matchTitle: "工位搭子图鉴",
+  matchLabels: { good: "最好的搭子", bad: "最容易互相消耗" },
+  disclaimer: "<b>说明</b> 本测试为趣味自测，只是给你一个观察自己的角度，不代表能力或性格优劣；职场处境各异，别拿它给自己贴死标签。",
+  results: {
+    be: { glyph:"🐝", code:"NO.40 · 实干型", name:"工蜂型", tag:"活都干了，功劳不一定有",
+      portrait:"你是办公室里那个「靠谱」的人——交给你的事一定完成，加班不抱怨，难题自己扛。你把工作当本分，但常常发现，干得最多的人，不一定被看见。",
+      detail:[
+        ["你平时会这样", ["埋头做事，很少主动表现自己","被安排什么就做什么，不太会拒绝","加班是常态，觉得「做不完是自己的问题」","心里有委屈，但很少说出来"]],
+        ["为什么会这样", "你相信「把事做好」就够了。但在职场里，做事和被人看见，是两件需要分别用力的事。"],
+        ["怎么对自己更好", ["学会让成果被看见，哪怕只是简单汇报一句","划出工作边界，不合理的加活要敢说"]],
+        ["要警惕", "一直当「老黄牛」，容易被默认成理所当然。"]
+      ],
+      match:{ best:"猫头鹰型——你们都不爱搞事，配合起来最省心。", worst:"狐狸型——TA 会来事，你只会越来越憋屈。" },
+      quote:"你不是不累，你只是觉得说出来也没用。" },
+    fo: { glyph:"🦊", code:"NO.41 · 社交型", name:"狐狸型", tag:"活儿不一定最多，但人挺好",
+      portrait:"你懂办公室的规矩——什么话该说、什么时候该出头、该跟谁走近。事情你不一定做最多，但领导记得住你，同事也愿意帮你。会来事，是你最硬的本事。",
+      detail:[
+        ["你平时会这样", ["擅长向上管理和沟通","会挑重点表现，不做无用功","消息灵通，知道办公室里的大小事","懂得借力，不硬扛"]],
+        ["为什么会这样", "你看得很清楚：职场是人和人的合作。把关系经营好，事情自然好办。"],
+        ["怎么对自己更好", ["别让「会来事」变成「只会来事」，硬实力才是底气","小心过度站队，风向一变容易摔"]],
+        ["要警惕", "靠人情拿到的，也可能因为人情失去。"]
+      ],
+      match:{ best:"企鹅型——一个主外、一个主内，配合最默契。", worst:"猫头鹰型——TA 不吃你那套，你也带不动 TA。" },
+      quote:"会做事是本事，让人看见也是。" },
+    ow: { glyph:"🦉", code:"NO.42 · 清醒型", name:"猫头鹰型", tag:"上班清醒，下班消失",
+      portrait:"你把工作看得很清楚：它只是一份工作。你效率高、话不多、准点走人，不参与八卦，也不轻易站队。你看起来冷淡，其实是把力气留给了自己真正在乎的事。",
+      detail:[
+        ["你平时会这样", ["准点上下班，绝不多待","不掺和办公室政治和闲聊","任务完成得干净，但不多做一分","对形式主义和画饼免疫"]],
+        ["为什么会这样", "你分得清「工作」和「生活」，不把自我价值绑在职位上——这其实是很多人学不来的清醒。"],
+        ["怎么对自己更好", ["适当的可见度也有用，别让低调变成透明","关键时刻表达一次立场，比一直沉默更安全"]],
+        ["要警惕", "过度抽离，可能错过真正值得投入的机会。"]
+      ],
+      match:{ best:"工蜂型——都务实、不废话，配合效率最高。", worst:"狐狸型——你觉得 TA 太油，TA 觉得你太冷。" },
+      quote:"你把力气，留给了真正在乎的东西。" },
+    pe: { glyph:"🐧", code:"NO.43 · 团结型", name:"企鹅型", tag:"谁都不好意思拒绝",
+      portrait:"你是团队里的暖炉——谁有事你都帮，谁开口你都应，冲突时你最想当和事佬。大家都喜欢你，但你也常常发现，什么活都落到你头上，而你不好意思说「不」。",
+      detail:[
+        ["你平时会这样", ["很难拒绝别人的请求","帮了很多忙，自己的活被拖到很晚","团队有矛盾时，你第一个出来打圆场","明明不情愿，也说「没关系」"]],
+        ["为什么会这样", "你怕让别人失望，也怕冲突。用「好说话」换来的和谐，代价是自己的时间和情绪。"],
+        ["怎么对自己更好", ["先练习一句不那么伤人的「这次我不行」","分清「帮忙」和「被占用」"]],
+        ["要警惕", "一味迁就，最后被消耗的总是你。"]
+      ],
+      match:{ best:"工蜂型——都实在，互相搭把手很舒服。", worst:"狐狸型——你会被 TA 拿捏得死死的。" },
+      quote:"你值得被好好对待，不只是被需要。" }
+  },
+  cta: {
+    eyebrow: "上班太内耗了？",
+    title: "《心流》和《活出生命的意义》，我读完了",
+    lead: "工作累不累，一半看环境，一半看你怎么跟它相处。这两本书讲的正是这个，我做成了可直接查的拆书稿：",
+    items: [
+      "《心流》——怎么进入专注、为什么忙起来反而不累",
+      "《活出生命的意义》——意义感从哪来，人怎么扛过难熬的阶段",
+      "含「结论速查」「术语速查」，每条独立可引用",
+      "附带一份「判断一条建议可不可靠」的清单"
+    ],
+    foot: "想要完整精华 → <b>评论区扣「图鉴」</b>，或私信我。<br>（这一行请替换成你自己的店铺 / 联系方式）"
+  },
+  questions: [
+    { tag:"第 1 题 · 新任务", text:"接到一个新任务，你第一反应是？",
+      opts:[ {label:"认真做完，尽量不出错", scores:{be:2}}, {label:"先想这件事领导最看重什么", scores:{fo:2}}, {label:"按流程做完，到点就走", scores:{ow:2}}, {label:"看看谁需要帮忙，一起弄", scores:{pe:2}} ] },
+    { tag:"第 2 题 · 会议上", text:"开会的时候，你通常是？",
+      opts:[ {label:"默默记下，回去落实", scores:{be:2}}, {label:"挑机会表达自己的想法", scores:{fo:2}}, {label:"很少发言，但心里有数", scores:{ow:2}}, {label:"有人争执时出来缓和一下", scores:{pe:2}} ] },
+    { tag:"第 3 题 · 求助", text:"同事临时请你帮忙，你会？",
+      opts:[ {label:"放下手头的活，先帮他", scores:{pe:2}}, {label:"看情况，先顾好自己的事", scores:{be:1,ow:1}}, {label:"答应，但顺势让他记住这个人情", scores:{fo:2}}, {label:"直说没空", scores:{ow:2}} ] },
+    { tag:"第 4 题 · 加班", text:"关于加班，你的常态是？",
+      opts:[ {label:"家常便饭，活没完就走不了", scores:{be:2}}, {label:"看值不值得，能给领导看见就加", scores:{fo:2}}, {label:"尽量不加班，效率比时长重要", scores:{ow:2}}, {label:"别人没走，我也不好意思走", scores:{pe:2}} ] },
+    { tag:"第 5 题 · 画饼", text:"领导又画了个大饼，你会？",
+      opts:[ {label:"认真信了，闷头干", scores:{be:2}}, {label:"礼貌点头，心里有数，顺势谈条件", scores:{fo:2}}, {label:"左耳进右耳出", scores:{ow:2}}, {label:"不太好意思质疑，附和一下", scores:{pe:2}} ] },
+    { tag:"第 6 题 · 站队", text:"团队里出现矛盾，你的做法是？",
+      opts:[ {label:"有点慌，尽量不掺和", scores:{be:1,ow:1}}, {label:"看谁能赢，站对边", scores:{fo:2}}, {label:"谁对谁错无所谓，别烦我", scores:{ow:2}}, {label:"主动去调和，两边都劝", scores:{pe:2}} ] },
+    { tag:"第 7 题 · 被抢功", text:"你的成果被同事拿去邀功，你会？",
+      opts:[ {label:"心里憋屈，但没说什么", scores:{be:2}}, {label:"找机会把这事让人知道", scores:{fo:2}}, {label:"无所谓，我只想安静做事", scores:{ow:2}}, {label:"算了算了，别伤和气", scores:{pe:2}} ] },
+    { tag:"第 8 题 · 下班后", text:"下班之后，你的状态是？",
+      opts:[ {label:"还在回工作消息", scores:{be:1,pe:1}}, {label:"维系关系，和同事／客户保持联系", scores:{fo:2}}, {label:"完全断开，消息明天再说", scores:{ow:2}}, {label:"有同事找我，不好意思不回", scores:{pe:2}} ] },
+    { tag:"第 9 题 · 这份工作", text:"你心里怎么定义这份工作？",
+      opts:[ {label:"是我该做好的事", scores:{be:2}}, {label:"是我的一个平台", scores:{fo:2}}, {label:"只是一份工作", scores:{ow:2}}, {label:"这里的人也是我的牵挂", scores:{pe:2}} ] },
+    { tag:"第 10 题 · 评优", text:"年终评优，你会？",
+      opts:[ {label:"做好就行，评不评随缘", scores:{be:2}}, {label:"提前准备材料，主动争取", scores:{fo:2}}, {label:"无所谓，走个流程", scores:{ow:2}}, {label:"谁评上都行，别让我出头", scores:{pe:2}} ] },
+    { tag:"第 11 题 · 下班点", text:"晚上 6 点，你的工位？",
+      opts:[ {label:"还在赶活，走不了", scores:{be:2}}, {label:"看情况，领导在就多坐会儿", scores:{fo:2}}, {label:"到点收拾，准点走人", scores:{ow:2}}, {label:"同事还在，不好意思先走", scores:{pe:2}} ] },
+    { tag:"第 12 题 · 甩锅", text:"出了问题，有人把锅甩给你，你？",
+      opts:[ {label:"自己扛下来，解释也麻烦", scores:{be:2}}, {label:"当场把责任说清楚，不留后患", scores:{fo:2}}, {label:"冷处理，清者自清", scores:{ow:2}}, {label:"算了，别闹僵，认了", scores:{pe:2}} ] },
+    { tag:"第 13 题 · 团建", text:"周末公司团建，你去不去？",
+      opts:[ {label:"去，别人都去我不去不好", scores:{be:1,pe:1}}, {label:"去，正好和领导同事处好关系", scores:{fo:2}}, {label:"找理由不去，周末是我的", scores:{ow:2}}, {label:"去，全程帮大家张罗", scores:{pe:2}} ] },
+    { tag:"第 14 题 · 晋升", text:"今年有机会晋升，你会？",
+      opts:[ {label:"觉得做好自己的事就行", scores:{be:2}}, {label:"提前准备，主动找领导聊", scores:{fo:2}}, {label:"无所谓，涨不涨随缘", scores:{ow:2}}, {label:"不好意思争，怕别人说闲话", scores:{pe:2}} ] }
+  ]
+};
+</script>
+<script src="assets/quiz.js"></script>
+</body>
+</html>
