@@ -69,7 +69,7 @@
       var k = document.createElement("span"); k.className = "k"; k.textContent = LETTERS[i];
       var t = document.createElement("span"); t.textContent = o.label;
       b.appendChild(k); b.appendChild(t);
-      b.onclick = function () { answers[idx] = i; renderQ(); };
+      b.onclick = function () { answers[idx] = i; go(1); };
       box.appendChild(b);
     });
 
